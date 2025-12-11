@@ -1,11 +1,20 @@
 #!/system/bin/sh
+# ===========================================
+# dnscrypt-proxy 2 for Android - Revived - service.sh
+# ===========================================
 # Do NOT assume where your module will be located.
 # ALWAYS use $MODDIR if you need to know where this script
-# and module is placed.
-# This will make sure your module will still work
-# if Magisk change its mount point in the future
+# and module is placed. Ensures module works even if
+# Magisk changes its mount point in the future.
+# ===========================================
 MODDIR=${0%/*}
 
-	while ! [ `pgrep -x dnscrypt-proxy` ] ; do
-		$MODDIR/system/bin/dnscrypt-proxy -config /storage/emulated/0/dnscrypt-proxy/dnscrypt-proxy.toml && sleep 15;
-	done
+BIN="$MODDIR/system/bin/dnscrypt-proxy"
+CONF="/storage/emulated/0/dnscrypt-proxy/dnscrypt-proxy.toml"
+
+# ------------------------------
+# Run dnscrypt-proxy until it starts successfully
+# ------------------------------
+while ! pgrep -x dnscrypt-proxy >/dev/null 2>&1; do
+    "$BIN" -config "$CONF" && sleep 15
+done

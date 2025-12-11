@@ -1,67 +1,101 @@
-  ui_print " "
-  ui_print "******************************"
-  ui_print "*   dnscrypt-proxy-android   *"
-  ui_print "*            2.1.5           *"
-  ui_print "******************************"
-  ui_print "*            d3cim           *"
-  ui_print "******************************"
-  ui_print " "
+#!/system/bin/sh
+# ===========================================
+# dnscrypt-proxy 2 for Android - Revived - customize.sh
+# ===========================================
+# Installation script: sets up binaries, configuration, permissions
+# and disables Private DNS mode for compatibility.
+# ===========================================
+ui_print "******************************"
+ui_print "*   dnscrypt-proxy-android   *"
+ui_print "*       Version 2.1.15       *"
+ui_print "*          Turbolqk          *"
+ui_print "******************************"
 
-# Get architecture specific binary file
-if [ "$ARCH" == "arm" ];then
-  BINARY_PATH=$MODPATH/binary/dnscrypt-proxy-arm
-elif [ "$ARCH" == "arm64" ];then
-  BINARY_PATH=$MODPATH/binary/dnscrypt-proxy-arm64
-elif [ "$ARCH" == "x86" ];then
-  BINARY_PATH=$MODPATH/binary/dnscrypt-proxy-i386
-elif [ "$ARCH" == "x64" ];then
-  BINARY_PATH=$MODPATH/binary/dnscrypt-proxy-x86_64
-fi
+# ------------------------------
+# Detect architecture
+# ------------------------------
+case "$ARCH" in
+  arm)
+    BINARY_PATH="$MODPATH/binary/dnscrypt-proxy-arm"
+    ;;
+  arm64)
+    BINARY_PATH="$MODPATH/binary/dnscrypt-proxy-arm64"
+    ;;
+  x86)
+    BINARY_PATH="$MODPATH/binary/dnscrypt-proxy-i386"
+    ;;
+  x64)
+    BINARY_PATH="$MODPATH/binary/dnscrypt-proxy-x86_64"
+    ;;
+  *)
+    abort "Unsupported architecture: $ARCH"
+    ;;
+esac
 
-# Set destination paths
-CONFIG_PATH=$MODPATH/config
+CONFIG_SRC="$MODPATH/config"
+CONFIG_DST="/storage/emulated/0/dnscrypt-proxy"
+BIN_DST="$MODPATH/system/bin/dnscrypt-proxy"
 
-# Create the path for the binary file
-ui_print "* Creating the binary path."
-mkdir -p $MODPATH/system/bin
+# ------------------------------
+# Wait for storage mount (safety)
+# ------------------------------
+i=0
+while [ ! -d "/storage/emulated/0" ] && [ $i -lt 20 ]; do
+  sleep 1
+  i=$((i+1))
+done
 
-# Create the path for the configuration files
-ui_print "* Creating the config. path."
-mkdir -p /storage/emulated/0/dnscrypt-proxy
+# ------------------------------
+# Create installation directories
+# ------------------------------
+ui_print "- Creating directories..."
+mkdir -p "$(dirname "$BIN_DST")"
+mkdir -p "$CONFIG_DST"
 
-# Copy the binary files into the right folder
+# ------------------------------
+# Install dnscrypt-proxy binary
+# ------------------------------
 if [ -f "$BINARY_PATH" ]; then
-ui_print "* Copying the binary files."
- cp -af $BINARY_PATH $MODPATH/system/bin/dnscrypt-proxy
+  ui_print "- Installing dnscrypt-proxy binary..."
+  cp -af "$BINARY_PATH" "$BIN_DST"
 else
-  abort "The binary file for your $ARCH device is missing!"
+  abort "Missing binary for architecture: $ARCH"
 fi
 
-# Backup an existing config file before proceed
-CONFIG_FILE="/storage/emulated/0/dnscrypt-proxy/dnscrypt-proxy.toml"
-
+# ------------------------------
+# Backup existing configuration
+# ------------------------------
+CONFIG_FILE="$CONFIG_DST/dnscrypt-proxy.toml"
 if [ -f "$CONFIG_FILE" ]; then
-ui_print "* Backing up the existing config. file before proceed."
-  cp -af  $CONFIG_FILE ${CONFIG_FILE}-`date +%Y%m%d%H%M`.bak
+  ui_print "- Backing up existing dnscrypt-proxy.toml..."
+  cp -af "$CONFIG_FILE" "${CONFIG_FILE}-$(date +%Y%m%d%H%M).bak"
 fi
 
-# Copy the configuration files into the right folder
-if [ -d "$CONFIG_PATH" ]; then
-ui_print "* Copying the configuration files into the dnscrypt-proxy folder."
-  cp -af $CONFIG_PATH/* /storage/emulated/0/dnscrypt-proxy/
+# ------------------------------
+# Install fresh configuration files
+# ------------------------------
+if [ -d "$CONFIG_SRC" ]; then
+  ui_print "- Installing configuration files..."
+  cp -af "$CONFIG_SRC"/* "$CONFIG_DST"/
 else
-  abort "Configuration file (.toml) is missing!"
+  abort "Missing config directory!"
 fi
 
-# Set the right permissions to the dnscrypt-proxy binary file
-ui_print "* Setting up the right permissions to the dnscrypt-proxy binary file."
-set_perm_recursive $MODPATH 0 0 0755 0755
-set_perm $MODPATH/system/bin/dnscrypt-proxy 0 0 0755
+# ------------------------------
+# Set permissions
+# ------------------------------
+ui_print "- Setting permissions..."
+set_perm_recursive "$MODPATH" 0 0 0755 0755
+set_perm "$BIN_DST" 0 0 0755
 
-# Set Private DNS mode off
-ui_print "* Disabling Android 9+ Private DNS mode."
-settings put global private_dns_mode off
+# ------------------------------
+# Disable Android Private DNS
+# ------------------------------
+ui_print "- Disabling Android Private DNS..."
+settings put global private_dns_mode off >/dev/null 2>&1
 
-# Cleanup unneeded binary files
-ui_print "* Cleaning up the unnecessary files."
-rm -r $MODPATH/binary
+# ------------------------------
+# Cleanup temporary binary folder
+# ------------------------------
+ui_print "- Cleaning temporary binary directory..."
+rm -rf "$MODPATH/binary"
