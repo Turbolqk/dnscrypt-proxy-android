@@ -1,7 +1,7 @@
 # Changelog
 
 ## 2.1.15
-### upstream
+### Upstream
 - The proxy now dynamically reduces timeouts as the connection limit is
 approached, improving performance and preventing connection exhaustion under
 heavy load.

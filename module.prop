@@ -1,7 +1,7 @@
 id=dnscrypt-proxy-android
-name=DNSCrypt-Proxy 2
-version=2.1.5
-versionCode=210500
-author=d3cim
-description=A flexible DNS proxy, with support for modern encrypted DNS protocols such as DNSCrypt v2, DNS-over-HTTPS, Anonymized DNSCrypt and ODoH (Oblivious DoH). Using dnscrypt-proxy 2.1.5
-updateJson=https://raw.githubusercontent.com/d3cim/dnscrypt-proxy-android/master/update.json
+name=dnscrypt-proxy 2 for Android
+version=2.1.15
+versionCode=201150
+author=Turbolqk
+description=A flexible DNS proxy, with support for encrypted DNS protocols.
+updateJson=https://raw.githubusercontent.com/Turbolqk/dnscrypt-proxy-android/master/update.json
