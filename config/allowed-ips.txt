@@ -1,17 +1,6 @@
-
 ##############################
-#        IP allowlist        #
+#        IP Allowlist        #
 ##############################
 
-## Author      : d3cim  : https://github.com/d3cim
-##                        https://git.nixnet.services/d3cim
-##
-## License     : GPLv3  : https://github.com/d3cim/block/blob/master/LICENSE.md
-##
-##
-## DO NOT DELETE THIS FILE !!
-##
-## This file is required by dnscrypt-proxy to work properly, you can use it to filter your content on the web, otherwise forget about it.
-##
-## More info at: https://github.com/DNSCrypt/dnscrypt-proxy/wiki/Filters
-##               https://github.com/d3cim/block
+# This file is required by dnscrypt-proxy.
+# Leave it empty unless you explicitly want to allow specific IPs.
