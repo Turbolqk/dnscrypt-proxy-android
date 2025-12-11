@@ -1,6 +1,6 @@
 # ![dnscrypt-proxy 2](https://raw.github.com/dnscrypt/dnscrypt-proxy/master/logo.png?3)
-![GitHub release (latest by date)](https://img.shields.io/github/v/release/Turbolqk/dnscrypt-proxy-android-revived)
-![GitHub all releases](https://img.shields.io/github/downloads/Turbolqk/dnscrypt-proxy-android-revived/total)
+![GitHub release (latest by date)](https://img.shields.io/github/v/release/Turbolqk/dnscrypt-proxy-android)
+![GitHub all releases](https://img.shields.io/github/downloads/Turbolqk/dnscrypt-proxy-android/total)
 
 # Overview
 
