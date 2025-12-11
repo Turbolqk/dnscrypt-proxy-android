@@ -1,105 +1,102 @@
-# DNSCrypt Proxy 2 for Android
+# ![dnscrypt-proxy 2](https://raw.github.com/dnscrypt/dnscrypt-proxy/master/logo.png?3)
+![GitHub release (latest by date)](https://img.shields.io/github/v/release/Turbolqk/dnscrypt-proxy-android-revived)
+![GitHub all releases](https://img.shields.io/github/downloads/Turbolqk/dnscrypt-proxy-android-revived/total)
 
-![GitHub release (latest by date)](https://img.shields.io/github/v/release/d3cim/dnscrypt-proxy-android?style=for-the-badge)
-![GitHub all releases](https://img.shields.io/github/downloads/d3cim/dnscrypt-proxy-android/total?style=for-the-badge)
+# Overview
 
-A flexible DNS proxy, with support for modern encrypted DNS protocols such as [DNSCrypt v2](https://dnscrypt.info/protocol), [DNS-over-HTTPS](https://www.rfc-editor.org/rfc/rfc8484.txt), [Anonymized DNSCrypt](https://github.com/DNSCrypt/dnscrypt-protocol/blob/master/ANONYMIZED-DNSCRYPT.txt) and [ODoH (Oblivious DoH)](https://github.com/DNSCrypt/dnscrypt-resolvers/blob/master/v3/odoh-servers.md).
-
-## Features
-
-- For all features please refer to the [official page](https://github.com/DNSCrypt/dnscrypt-proxy#features).
+A flexible DNS proxy with support for modern encrypted DNS protocols, including [DNSCrypt v2](https://dnscrypt.info/protocol), [DNS-over-HTTPS](https://www.rfc-editor.org/rfc/rfc8484.txt), [Anonymized DNSCrypt](https://github.com/DNSCrypt/dnscrypt-protocol/blob/master/ANONYMIZED-DNSCRYPT.txt), and [ODoH (Oblivious DoH)](https://github.com/DNSCrypt/dnscrypt-resolvers/blob/master/v3/odoh-servers.md).
+```
+This is a fork of [d3cim’s original](https://github.com/d3cim/dnscrypt-proxy-android) Magisk module.
+```
 
 ## Pre-built binaries
 
-Up-to-date, pre-built binaries are available for:
+Up-to-date, pre-built binaries for:
 
-- Android/arm
-- Android/arm64
-- Android/x86
-- Android/x86_64
+- arm
+- arm64
+- x86
+- x86_64
 
-All the binary files are downloaded from the [official release page](https://github.com/DNSCrypt/dnscrypt-proxy/releases).
-
-## Differences from the main project
-
-- `server_names` = `ams-dnscrypt-nl` [NLD], `d0wn-tz-ns1` [TZA], `dct-nl` [NLD], `dct-ru` [RUS], `dnscrypt.be` [BEL], `dnscrypt.pl` [POL], `dnscrypt.uk-ipv4` [GBR], `dnswarden-uncensor-dc-swiss` [CHE], `meganerd` [NLD], `openinternet` [USA], `plan9dns-fl` [USA], `plan9dns-mx` [MEX], `plan9dns-nj` [USA], `pryv8boi` [DEU], `sby-limotelu` [IDN], `scaleway-ams` [NLD], `scaleway-fr` [FRA], `serbica` [NLD], `techsaviours.org-dnscrypt` [DEU], `v.dnscrypt.uk-ipv4` [GBR] are the resolvers in use.
-
-- `doh_servers = false` (disable servers implementing the `DNS-over-HTTPS` protocol)
-
-- `require_dnssec = true` (server must support `DNSSEC` security extension)
-
-- `force_tcp = true` (fix for mobile data intial connection random issues if `routes` have been set and `skip_incompatible = true`, see [DNSCrypt/dnscrypt-proxy/discussions/2020](https://github.com/DNSCrypt/dnscrypt-proxy/discussions/2020))
-
-- `timeout = 1000` (set the max. response time of a single DNS query from `5000` to `1000` ms.)
-
-- `blocked_query_response = 'refused'` (set `refused` response to blocked queries)
-
-- `# log_level = 0` (set the log level of the `dnscrypt-proxy.log` file to very verbose, but keep it disabled by default)
-
-- `dnscrypt_ephemeral_keys = true` (create a new, unique key for every single DNS query)
-
-- `bootstrap_resolvers = ['45.11.45.11:53']` (use [DNS.SB](https://dns.sb/) instead [CloudFlare](https://archive.today/tS1Ln))
-
-- `netprobe_address = '45.11.45.11:53'` (use [DNS.SB](https://dns.sb/) instead [CloudFlare](https://archive.today/tS1Ln))
-
-- `block_ipv6 = true` (immediately respond to IPv6-related queries with an empty response)
-
-- `blocked-names.txt`, `blocked-ips.txt`, `allowed-names.txt` and `allowed-ips.txt` files enabled. (to know more specifics about this, please refer to the [Filters (optional)](https://github.com/d3cim/dnscrypt-proxy-android#filters-optional) section below)
-
-- `anonymized_dns` feature enabled. (`routes` are indirect ways to reach DNSCrypt servers, each resolver has 2 relays assigned)
-
-- `skip_incompatible = true` (skip resolvers incompatible with anonymization instead of using them directly)
-
-- `direct_cert_fallback = false` (prevent direct connections through the resolvers for failed certificate retrieved via relay)
+All binary files are downloaded directly from the official [release page](https://github.com/DNSCrypt/dnscrypt-proxy/releases).
 
 ## Installation
 
-**1.** Download the latest `dnscrypt-proxy-android-*.zip` file from the [Releases](https://github.com/d3cim/dnscrypt-proxy-android/releases/latest) page and flash it with [Magisk](https://github.com/topjohnwu/Magisk):
-
+1. Download the latest `dnscrypt-proxy-android-revived-*.zip` from the [Releases](https://github.com/Turbolqk/dnscrypt-proxy-android-revived/releases/latest) page.
+2. Flash it via:
 ```
-Magisk > Modules > Install from storage > dnscrypt-proxy-android-*.zip
+Magisk > Modules > Install from storage > dnscrypt-proxy-android-revived-*.zip
 ```
+3. Reboot your device.
+4. Test your DNS:
+- [DNS Leak Test](https://dnsleaktest.com/)
+- [DNSCheck](https://dnscheck.tools/).
 
-**2.** Reboot your device.
+## Out of the box setup
 
-**3.** Test your DNS at https://dnsleaktest.com/
+This module comes with my own configuration out of the box and uses Anonymized DNS. Feel free to customize it as you want.
 
-### Configuration (optional)
+Changes:
+- `server_names = ['quad9-dnscrypt-ip4-filter-pri', 'scaleway-fr', 'scaleway-ams']` - You don't need many servers here, use a few you like instead.
+- `listen_addresses = ['127.0.0.1:5354']` - Avoid conflicts while tethering.
+- `doh_servers = false` - Since I'm using DNSCrypt v2 instead of DoH.
+- `require_dnssec = true` - Always have this enabled. It verifies the authenticity of your DNS queries, but your server has to support it too.
+- `require_nofilter = false` - Why wouldn't you want a filter?
+- `log_file = 'dnscrypt-proxy.log'`
+- `log_file_latest = true`
+- `dnscrypt_ephemeral_keys = true`
+- `block_ipv6 = true` - Prevents IPv6 leaks if you're using IPv4 only.
+- `blocked_names_file = 'blocked-names.txt'`
+- `log_file = 'blocked-names.log'`
+- `blocked_ips_file = 'blocked-ips.txt'`
+- `log_file = 'blocked-ips.log'`
+- `allowed_names_file = 'allowed-names.txt'`
+- `log_file = 'allowed-names.log'`
+- `allowed_ips_file = 'allowed-ips.txt'`
+- `log_file = 'allowed-ips.log'`
+- `server_name='*'`, `via=['anon-cs-ch', 'anon-scaleway-ams', 'anon-scaleway']` - Anonymized DNS. `'*'` in `server_name=` is a wildcard.
+- `skip_incompatible = true`
+- `direct_cert_fallback = false`
 
-You can edit the `dnscrypt-proxy.toml` file as you wish located on `storage/emulated/0/dnscrypt-proxy` path.
+> - Do not change `listen_addresses`, `bootstrap_resolvers` and `netprobe_address`, as that would break functionality.
+> - IPv6 is blocked by default (`block_ipv6 = true`) to prevent DNS leaks. Only change this if you know what you're doing.
 
-For a more detailed configuration you can refer to the [official documentation](https://github.com/DNSCrypt/dnscrypt-proxy/wiki/Configuration) or simply join our group on [Telegram](https://telegram.org/), at [dnscrypt-proxy-android | CHAT](https://t.me/qd_invitations).
+## Configure dnscrypt-proxy (optional)
+
+You can customize dnscrypt-proxy by editing the`dnscrypt-proxy.toml` file located in:
+```
+storage/emulated/0/dnscrypt-proxy
+```
+  
+For more detailed configuration options, see the [official documentation](https://github.com/DNSCrypt/dnscrypt-proxy/wiki/Configuration).
 
 ### Filters (optional)
 
-Filters are a powerful set of built-in features, that let you control exactly what domain names and IP addresses your device are allowed to connect to. This can be used to block ads, trackers, malware, or anything you don't want your device to load.
+Filters are a powerful set of built-in features that let you control exactly which domain names and IP addresses your applications can connect to, and when.
 
-This [module](https://github.com/d3cim/dnscrypt-proxy-android) comes with the [filtering feature](https://github.com/DNSCrypt/dnscrypt-proxy/wiki/Filters) enabled by default, that's why you can see files designed for this operation inside the internal folder. Out of the box these files are empty and are used only to ensure the correct start of `dnscrypt-proxy` service.\
-To know more about it you can consult the [official documentation](https://github.com/DNSCrypt/dnscrypt-proxy/wiki/Filters), or in a simpler way through my [block repository](https://github.com/d3cim/block).
+You can use them to block ads, trackers, malware, or anything you don’t want your applications to load—or your devices to “phone home” to.  
 
-I'm also providing the `allowed-names.txt` and `blocked-names.txt` files regularly updated at [dnscrypt-proxy-filters | CHANNEL](https://t.me/dnscrypt_proxy_filters). The [sources](https://github.com/d3cim/block#sources) used for this merge are among the hardest on the web.
+For more information, see the [official documentation](https://github.com/DNSCrypt/dnscrypt-proxy/wiki/Filters).
 
-You can contribute to this blocklist at anytime, opening a [New Issue](https://github.com/d3cim/dnscrypt-proxy-android/issues) here or simply reporting the issue at [dnscrypt-proxy-filters | CHAT](https://t.me/qd_invitations) on [Telegram](https://telegram.org/).
+- This module comes with `allowed-ips`, `allowed-names`, `blocked-ips`, and `blocked-names` enabled by default, hence the files inside the dnscrypt-proxy folder. They are required for the `dnscrypt-proxy` service to work.  
+- The filter files are empty by default except for `blocked-ips.txt`, which includes [DNS rebinding protection](https://en.wikipedia.org/wiki/DNS_rebinding#Protection). Some useful information:
+
+> Note: Some applications like Plex require rebinding protection to be disabled for local clients to be detected correctly. Instead of disabling it globally, you can allow the relevant domain(s). In the case of Plex, add `plex.direct` to `allowed-names.txt`. Captive portal domains which resolve to private addresses can also be allowed in the same way.
+
+- In this configuration, each filter also generates a corresponding `.log` file. You can disable logging in `dnscrypt-proxy.toml`.
 
 ## Changelog
 
-- See [CHANGELOG](https://github.com/d3cim/dnscrypt-proxy-android/blob/master/CHANGELOG.md).
+- For a full list of changes, see [CHANGELOG.md](https://github.com/Turbolqk/dnscrypt-proxy-android-revived/blob/master/CHANGELOG.md).
 
-## Version numbers
+## Versioning
 
-dnscrypt-proxy-android tags follow the format `{dnscrypt-proxy_version}.{revision}` where
-
-* `dnscrypt-proxy_version` is the version of dnscrypt-proxy used in `x.x.x` format, and
-* `revision` is a number indicating the version of dnscrypt-proxy-android for the corresponding dnscrypt-proxy version.
-
-## Donations
-
-- **BTC** address: `126Y2BJQyPq8CHAaFMCyVH5QcbSViQz89e`
-- **ETH** address: `0x16b917Bb585D2411b9c9C81b03de72471f3f072F`
-- **XMR** address: `41jXybL88etPg1nGuPsMZbFSzKzbXYat4Xak3QssPy7LNs4VBWXDxbhjSdtLJDA138cx7cTq8JhFoiTTVLhWrTNAUywgGFD`
+This module's version corresponds to the official dnscrypt-proxy's versioning.
 
 ## Credits
 
-- [Frank Denis](https://github.com/jedisct1) and his [contributors](https://github.com/DNSCrypt/dnscrypt-proxy/graphs/contributors) for the upstream code.
-- [Affif Mukhlashin](https://github.com/bluemeda) and his [contributors](https://github.com/bluemeda/dnscrypt-proxy-magisk/graphs/contributors) for the very first module.
-- [John Wu](https://github.com/topjohnwu) and his [contributors](https://github.com/topjohnwu/Magisk/graphs/contributors) for Magisk.
+This project would not have existed without the amazing work of:
+- [Frank Denis](https://github.com/jedisct1) and all [dnscrypt-proxy contributors](https://github.com/DNSCrypt/dnscrypt-proxy/graphs/contributors) for the original project.
+- [John Wu](https://github.com/topjohnwu) and all [Magisk contributors](https://github.com/topjohnwu/Magisk/graphs/contributors) for Magisk.
+- [d3cim](https://github.com/d3cim) and the [dnscrypt-proxy-android contributors](https://github.com/d3cim/dnscrypt-proxy-android/graphs/contributors) for the module this project is based on.
+- [Affif Mukhlashin](https://github.com/bluemeda) and his contributors for the original Magisk module.
