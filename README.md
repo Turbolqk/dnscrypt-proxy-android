@@ -28,9 +28,7 @@ All binary files are downloaded directly from the official [release page](https:
 Magisk > Modules > Install from storage > dnscrypt-proxy-android-revived-*.zip
 ```
 3. Reboot your device.
-4. Test your DNS:
-- [DNS Leak Test](https://dnsleaktest.com/)
-- [DNSCheck](https://dnscheck.tools/).
+4. Test your DNS at [DNS Leak Test](https://dnsleaktest.com/) or [DNSCheck](https://dnscheck.tools/).
 
 ## Out of the box setup
 
@@ -58,8 +56,9 @@ Changes:
 - `skip_incompatible = true`
 - `direct_cert_fallback = false`
 
-> - Do not change `listen_addresses`, `bootstrap_resolvers` and `netprobe_address`, as that would break functionality.
-> - IPv6 is blocked by default (`block_ipv6 = true`) to prevent DNS leaks. Only change this if you know what you're doing.
+> Do not change `listen_addresses`, `bootstrap_resolvers` and `netprobe_address`, as that would break functionality.
+
+> IPv6 is blocked by default (`block_ipv6 = true`) to prevent DNS leaks. Only change this if you know what you're doing.
 
 ## Configure dnscrypt-proxy (optional)
 
