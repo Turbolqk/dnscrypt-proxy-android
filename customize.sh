@@ -1,13 +1,13 @@
 #!/system/bin/sh
 # ===========================================
-# dnscrypt-proxy 2 for Android - Revived - customize.sh
+# dnscrypt-proxy 2 for Android - customize.sh
 # ===========================================
 # Installation script: sets up binaries, configuration, permissions
 # and disables Private DNS mode for compatibility.
 # ===========================================
 ui_print "******************************"
 ui_print "*   dnscrypt-proxy-android   *"
-ui_print "*       Version 2.1.15       *"
+ui_print "*       Version 2.1.16       *"
 ui_print "*          Turbolqk          *"
 ui_print "******************************"
 

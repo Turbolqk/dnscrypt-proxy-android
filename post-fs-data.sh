@@ -1,6 +1,6 @@
 #!/system/bin/sh
 # ===========================================
-# dnscrypt-proxy 2 for Android - Revived - post-fs-data.sh
+# dnscrypt-proxy 2 for Android - post-fs-data.sh
 # ===========================================
 # Do NOT assume where your module will be located.
 # ALWAYS use $MODDIR if you need to know where this script

@@ -1,6 +1,6 @@
 #!/system/bin/sh
 # ===========================================
-# dnscrypt-proxy 2 for Android - Revived - uninstall.sh
+# dnscrypt-proxy 2 for Android - uninstall.sh
 # ===========================================
 # Cleans up leftover DNSCrypt Proxy files from common storage locations
 # ===========================================
