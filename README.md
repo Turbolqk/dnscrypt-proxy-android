@@ -6,7 +6,7 @@
 
 A flexible DNS proxy with support for modern encrypted DNS protocols, including [DNSCrypt v2](https://dnscrypt.info/protocol), [DNS-over-HTTPS](https://www.rfc-editor.org/rfc/rfc8484.txt), [Anonymized DNSCrypt](https://github.com/DNSCrypt/dnscrypt-protocol/blob/master/ANONYMIZED-DNSCRYPT.txt), and [ODoH (Oblivious DoH)](https://github.com/DNSCrypt/dnscrypt-resolvers/blob/master/v3/odoh-servers.md).
 ```
-This is a fork of [d3cim’s original](https://github.com/d3cim/dnscrypt-proxy-android) Magisk module.
+This is a fork of d3cim’s original Magisk module - https://github.com/d3cim/dnscrypt-proxy-android.
 ```
 
 ## Pre-built binaries
@@ -22,10 +22,10 @@ All binary files are downloaded directly from the official [release page](https:
 
 ## Installation
 
-1. Download the latest `dnscrypt-proxy-android-revived-*.zip` from the [Releases](https://github.com/Turbolqk/dnscrypt-proxy-android-revived/releases/latest) page.
+1. Download the latest `dnscrypt-proxy-android-*.zip` from the [Releases](https://github.com/Turbolqk/dnscrypt-proxy-android/releases) page.
 2. Flash it via:
 ```
-Magisk > Modules > Install from storage > dnscrypt-proxy-android-revived-*.zip
+Magisk > Modules > Install from storage > dnscrypt-proxy-android-*.zip
 ```
 3. Reboot your device.
 4. Test your DNS at [DNS Leak Test](https://dnsleaktest.com/) or [DNSCheck](https://dnscheck.tools/).
