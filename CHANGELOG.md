@@ -1,4 +1,21 @@
 # Changelog
+## 2.1.18
+### Upstream
+ - Forwarding rules now support the $PROXY: prefix to send selected plain DNS upstreams over DNS-over-TCP through the proxy configured by the main proxy setting.
+ - PQDNSCrypt certificate retrieval is more reliable on paths where fragmented UDP packets are blocked, including when certificates are fetched through Anonymized DNSCrypt relays.
+ - Resolver latency measurements no longer include setup or certificate-transfer time, so startup benchmarks and server selection better reflect actual query response time.
+
+## 2.1.17
+### Upstream
+ - Added support for PQDNSCrypt (DNSCrypt 2026), using post-quantum cryptography with compatible DNSCrypt servers to protect query confidentiality against future quantum computers. It is enabled by default and can be disabled with the new pqdnscrypt setting.
+ - Key material is now rotated when the local network changes, reducing linkability across network changes.
+ - Fixed a cache issue that could corrupt cached responses or cause data races under concurrent use.
+ - The netprobe_timeout configuration setting is now honored instead of being silently overridden by its command-line default.
+ - Forwarded queries now correctly fall back to TCP after a truncated UDP response, and SOCKS-proxied anonymized DNS exchanges are sent to the relay.
+ - HTTP/3 connections now retry after transient failures, and bootstrap resolution succeeds when at least one address was obtained.
+ - Cloaking rules that resolve through a rule ending in an IP address are no longer incorrectly rejected as recursive. Actual loops are still rejected.
+ - The monitoring dashboard now resolves API paths against the page origin, allowing it to work correctly when hosted under a path.
+
 ## 2.1.16
 ### Upstream
  - Dashboard HTML pages are no longer cached, preventing stale content from being served after upgrades.

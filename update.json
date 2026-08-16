@@ -1,6 +1,6 @@
 {
-    "version": "2.1.16",
-    "versionCode": 201160,
-    "zipUrl": "https://github.com/Turbolqk/dnscrypt-proxy-android/releases/download/2.1.16/dnscrypt-proxy-android-2.1.16.zip",
-    "changelog": "https://raw.githubusercontent.com/Turbolqk/dnscrypt-proxy-android/2.1.16/CHANGELOG.md"
+    "version": "2.1.18",
+    "versionCode": 201180,
+    "zipUrl": "https://github.com/Turbolqk/dnscrypt-proxy-android/releases/download/2.1.18/dnscrypt-proxy-android-2.1.18.zip",
+    "changelog": "https://raw.githubusercontent.com/Turbolqk/dnscrypt-proxy-android/2.1.18/CHANGELOG.md"
 }

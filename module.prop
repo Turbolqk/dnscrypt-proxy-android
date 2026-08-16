@@ -1,7 +1,7 @@
 id=dnscrypt-proxy-android
 name=dnscrypt-proxy 2 for Android
-version=2.1.16
-versionCode=201160
+version=2.1.18
+versionCode=201180
 author=Turbolqk
 description=A flexible DNS proxy, with support for encrypted DNS protocols.
 updateJson=https://raw.githubusercontent.com/Turbolqk/dnscrypt-proxy-android/master/update.json

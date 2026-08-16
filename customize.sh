@@ -7,7 +7,7 @@
 # ===========================================
 ui_print "******************************"
 ui_print "*   dnscrypt-proxy-android   *"
-ui_print "*       Version 2.1.16       *"
+ui_print "*       Version 2.1.18       *"
 ui_print "*          Turbolqk          *"
 ui_print "******************************"
 
